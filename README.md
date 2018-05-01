@@ -22,7 +22,7 @@ The API service allows the `child` profile to `read` all cards and `delete` bala
 ### Setting up on Auth0
 - Create an API with title: `MyWallet API` and make sure to enable `Allow Offline Access` and disable `Allow skipping user consent` (as we would like to see the consent screen)
 - Choose the API identifier to map to `http://localhost:9090`
-- Choose Signing algorithm as `HS256` so that we can have our own signing secret and this makes it a tad easier in the code while validating the JWT's.
+- Choose Signing algorithm as `HS256`.
 - Create an application with title: `MyWallet Web` and set the redirect url as `http://localhost:9090/_zero/callback`, allowed web origins as `http://localhost:9090/` and also make sure to enable `Refresh Token` in the Grants
 - Create a rule `Custom authorization scopes` with the content of the file `auth0/rule.js`. This logic takes care of mapping the role to scopes of the api
 - Modify the hosted page with contents of the file from `auth0/hosted-login.html`, we customized it so as to see our custom select box with roles during signup
