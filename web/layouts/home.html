@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+{% block body %}
+{% if error %}
+    <div class="alert alert-warning">Error {{ error.code }}: {{ error.description }}</div>
+{% endif %}
+{% if userinfo %}
+    <div class="metaenv">Welcome {{ userinfo.nickname }}
+    </div>
+{% endif %}
+{% if not session.token %}
+    <div class="login">
+        <a href="{{ url_for('login') }}"> Login </a>
+    </div>
+{% else %}
+		
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <td> Card id </td>
+                    <td> Balance </td>
+                    <td> Delete? </td>
+                </tr>
+            </thead>
+            {% for card_id in cards %}
+            <tr>
+                <td> {{ card_id }} </td>
+                <td> {{ cards[card_id] }} </td>
+                <td> <a href="{{ url_for('remove_card', card_id=card_id) }}">Delete </a></td>
+            </tr>
+            {% endfor %}
+        </table>
+
+    <div class="form">
+        <form method="post" action="{{ url_for('modify_balance') }}">
+            <div class="form-group">
+                <label for="card_id"> Card Id </label>
+                <input type="text" class="form-control"  id="card_id" name="card_id" placeholder="Card id"/>
+            </div>
+            <div class="form-group">
+                <label for="balance"> Modify balance </label>
+                <select name="balance" class="form-control" id="balance">
+                    <option value="10"> 10 </option>
+                    <option value="50"> 50 </option>
+                    <option value="100"> 100 </option>
+                    <option value="-10"> -10 </option>
+                    <option value="-50"> -50 </option>
+                    <option value="-100"> -100 </option>
+                </select>
+            </div>
+
+            <input type="submit" class="btn btn-primary" value="Modify" />
+        </form>
+
+    </div>
+    
+    
+{% endif %}
+
+{% endblock %}

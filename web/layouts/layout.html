@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Wallets</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+        <!-- Popper JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<style type="text/css">
+    body {
+        margin: 0 auto;
+        padding-top: 10%;
+    }
+    .metanav {
+        position: absolute;
+        top: 25px;
+        right: 0;
+        width: 120px;
+        border: 1px white solid;
+    }
+    .login {
+        font-size: 20px;
+        background-color: white;
+        width: 5%;
+        height: 40px;
+        margin: 0 auto;
+        vertical-align: middle;
+        text-align: center;
+        line-height: 35px;
+    }
+    .page {
+        width: 50%;
+        margin: 0 auto;
+    }
+    .form {
+        width: 15%;
+    }
+    a {
+        text-decoration: none;
+    }
+    a:focus {
+        text-decoration: underline;
+    }
+</style>
+    </head>
+    <body>
+        <div class=page>
+          <div class=metanav>
+          {% if session.token %}
+            <a href="{{ url_for('logout') }}">Logout</a>
+          {% endif %}
+          </div>
+          {% block body %}{% endblock %}
+        </div>
+    </body>
+</html>
