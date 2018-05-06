@@ -1,6 +1,6 @@
 asn1crypto==0.24.0
 auth0-python==3.2.0
-Authlib==0.6
+Authlib==0.7
 certifi==2018.4.16
 cffi==1.11.5
 chardet==3.0.4
