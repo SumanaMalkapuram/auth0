@@ -1,9 +1,21 @@
 # The Wallet App
 
+The service could be used by two type of persons in a family - Parent and Child. Parent can delete any of the existing cards, read the balances and cards in the wallet. Child can read all the cards and the respective balance and can perform few purchases which would deduct the balance in a card. Child cannot add balance to a card, neither can he delete a card.
+
 The API service allows the `parent` profile to `delete` and `read` all cards associated with his profile.
 The API service allows the `parent` profile to `add`, `delete` balance against his card
 The API service allows the `child` profile to `read` all cards and `delete` balance against a card
 
+# List of Scopes supported by API service
+
+read cards
+delete cards
+add cards
+read balance
+delete balance
+add balance
+
+My client application doesnt require 'add cards' service. It just needs read and delete cards, modify balance. 
 
 ## Requirements
 - Python3

@@ -1,6 +1,7 @@
 from functools import wraps
 from flask import Flask, request, jsonify, url_for, redirect
 from wallet import Wallet
+from error import Error
 from jose import jwt
 from urllib.request import urlopen
 
@@ -17,14 +18,6 @@ app.debug = env.get('ENVIRONMENT', 'development') == 'development'
 AUTH0_DOMAIN = env.get("AUTH0_DOMAIN", "sumana.auth0.com")
 API_IDENTIFIER = env.get("API_IDENTIFIER", "http://localhost:8080")
 ALGORITHMS = ["HS256", "RS256"]
-
-ROLES_IDENTIFIER = 'http://sumana.com/roles'
-
-
-class Error(Exception):
-    def __init__(self, error, status_code):
-        self.error = error
-        self.status_code = status_code
 
 
 def get_token_auth_header():
@@ -127,8 +120,8 @@ def handle_error(f):
             response.status_code = e.status_code
             return response
         except Exception as ex:
-            response = jsonify(ex.error)
-            response.status_code = ex.status_code
+            response = jsonify({'description': str(ex), 'code': 'generic:error'})
+            response.status_code = 500
             return response
 
     return callback

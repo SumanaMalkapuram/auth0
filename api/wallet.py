@@ -1,4 +1,5 @@
 from copy import copy
+from error import Error
 
 
 class _Wallet(object):
@@ -11,10 +12,10 @@ class _Wallet(object):
 
     def add_card(self, card_id, balance):
         if card_id in self.wallet:
-            raise Exception('duplicate:card')
+            raise Error({'code': 'duplicate:card', 'description': 'Invalid balance'}, 401)
 
         if balance < 0:
-            raise Exception('invalid:balance')
+            raise Error({'code': 'invalid:balance', 'description': 'Invalid balance'}, 401)
 
         self.wallet[card_id] = balance
 
@@ -29,13 +30,13 @@ class _Wallet(object):
                 self.wallet[card_id] = new_amount
                 return
 
-        raise Exception({'code': 'invalid:card', 'description': 'Invalid action'}, 401)
+        raise Error({'code': 'invalid:card', 'description': 'Invalid action'}, 401)
 
     def get_balance(self, card_id):
         if self.has_card(card_id):
             return self.wallet[card_id]
 
-        raise Exception("invalid:card")
+        raise Error({'code': 'invalid:card', 'description': 'Invalid card'}, 401)
 
     def get_wallet(self):
         return copy(self.wallet)

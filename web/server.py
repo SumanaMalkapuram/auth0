@@ -15,7 +15,6 @@ app.debug = env.get('ENVIRONMENT', 'development') == 'development'
 
 @app.route('/_zero/callback')
 def handle_callback():
-    global auth0
 
     token = auth0.authorize_access_token()
     session['token'] = token
@@ -42,7 +41,7 @@ def home():
         userinfo = userdetails.json()
         resp = auth0.get(config.CARDS_ENDPOINT, token=session['token'])
         error = session.get('error', None)
-        if error:
+        if error is not None:
             session['error'] = None
         return render_template('home.html', cards=resp.json(), error=error, userinfo=userinfo)
 
@@ -91,7 +90,7 @@ if __name__ == '__main__':
         grant_type='authorization_code',
         update_token=update_token,
         client_kwargs={
-            'scope': 'openid profile offline_access read:balance read:cards add:balance delete:balance add:card delete:cards',
+            'scope': 'openid profile offline_access read:balance read:cards add:balance delete:balance delete:cards',
         },
     )
     app.run(port=int(port),debug=True)
